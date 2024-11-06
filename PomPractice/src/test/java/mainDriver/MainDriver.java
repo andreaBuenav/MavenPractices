@@ -11,6 +11,10 @@ public class MainDriver {
        System.setProperty( "webdriver.chrome.driver", path+"util/chromedriver.exe");
     driver = new ChromeDriver();
     }
+
+    public WebDriver getDriver() {
+        return this.driver;
+    }
 }
 
 
