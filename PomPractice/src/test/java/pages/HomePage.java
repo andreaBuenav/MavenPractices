@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.Random;
+import java.util.*;
 
 public class HomePage extends BasePage {
     public HomePage(WebDriver driver) {
@@ -15,29 +15,44 @@ public class HomePage extends BasePage {
     }
 
 
-//Web elements
+//Buttons
     @FindBy(id = "add-to-cart")
    private WebElement addToCart;
+
     @FindBy(id = "back-to-products")
     private WebElement back;
 
+
     //Method to select random items
-    public ItemPage selectItem(int itemSelected) {
-        int itemNumber = 0;
+    public ItemPage selectItems(int itemsToSelect) {
+        Set<Integer> selectedItems = new HashSet<>();
         Random random = new Random();
-        while (itemSelected < itemNumber) {
+        while (selectedItems.size() < itemsToSelect) {
             int randomIndex = random.nextInt(6);
-            String itemId = "item-" + (randomIndex )+"-title-link";
-            WebElement item = driver.findElement(By.id(itemId));
-            if (item.isDisplayed() && item.isEnabled()) {
-                item.click();
-                addToCart.click();
-                itemSelected++;
-                back.click();
+            if (selectedItems.add(randomIndex)) {
+                String index = Integer.toString(randomIndex);
+                String itemId = "item_" + index + "_title_link";
+                WebElement item = driver.findElement(By.id(itemId));
+                if (item.isDisplayed() && item.isEnabled()) {
+                    waitToBeClickable(item);
+                    item.click();
+                    addToCart.click();
+                    back.click();
+                }
             }
         }
+
         return new ItemPage(driver);
     }
-}
+
+
+
+
+
+
+
+
+    }
+
 
 

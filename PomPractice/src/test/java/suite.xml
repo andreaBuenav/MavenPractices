@@ -4,12 +4,14 @@
     <parameter name="url" value="https://www.saucedemo.com/"></parameter>
     <parameter name="username" value="standard_user"></parameter>
     <parameter name="password" value="secret_sauce"></parameter>
-    <parameter name="item" value="1"></parameter>
+    <parameter name="item" value="3"></parameter>
     <parameter name="title" value="Thank you for your order!"></parameter>
     
-    <test name="group 1">
+    <test name="test2">
         <classes>
-            <class name="com.globant.AppTest"></class>
+            <class name="com.globant.RemoveItemTest"></class>
+
+
         </classes>
         
     </test>
