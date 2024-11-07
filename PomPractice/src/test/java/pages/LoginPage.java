@@ -11,16 +11,20 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
+    //Inputs
     @FindBy(id = "user-name")
     private WebElement usernameInput;
     @FindBy(id = "password")
     private WebElement passwordInput;
+    //Button
     @FindBy(id = "login-button")
     private WebElement loginButton;
 
-    public void login(String username, String password){
+    //Method to log into the platform
+    public HomePage login(String username, String password){
         usernameInput.sendKeys(username);
         passwordInput.sendKeys(password);
         loginButton.click();
+        return  new HomePage(driver);
     }
 }
