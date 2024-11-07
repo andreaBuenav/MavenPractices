@@ -1,34 +1,49 @@
 package com.globant;
 
-import static org.junit.Assert.assertTrue;
 
-import mainDriver.MainDriver;
-import org.junit.Test;
-import org.testng.annotations.BeforeMethod;
+import baseTest.BaseTest;
+import java.util.logging.Logger;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+import pages.CheckoutPage;
+import pages.HomePage;
+import pages.ItemPage;
+import pages.LoginPage;
+
 
 /**
  * Unit test for simple App.
  */
-public class AppTest 
-{
-    MainDriver driver;
+public class AppTest extends BaseTest {
+
+    public Logger log = Logger.getLogger(String.valueOf(AppTest.class));
+
+    //Select a random item and purchase it
+    @Test(groups = {"group 1", "group 2","group 3"})
+    public void init(){
+       log.info("Starting tests");
+    }
+
+    @Test(groups = {"group 1"})
+    @Parameters({"username", "password", "item", "title"})
+public void firstTest(String username,String password,int item,String title){
+        //All page loads
+        LoginPage login = loadFirstPage();
+        HomePage home = loadHomepage();
+        ItemPage itemPage = loadItemPage();
+        CheckoutPage checkout = loadCheckoutPage();
+
+        //Methods to test
+        login.login(username, password);
+        home.selectItem(item);
+        itemPage.purchaseSelected();
+        checkout.checkout(title);
 
 
-     @BeforeMethod(alwaysRun = true)
-
-     public void loadPage(){
-         
-
-     }
-
-    @Test
-
-     //Select a random item and purchase it
-    public void firstTest(){
 
     }
 
-    @Test
+   // @Test
     /*
      Select 3 random items, go to the checkout page, remove them and check reassure
      that the cart is now empty
@@ -36,7 +51,7 @@ public class AppTest
     public void secondTest(){
 
     }
-    @Test
+   // @Test
     /*
      Try to log out and check if you are correctly redirected to the login page
      */
