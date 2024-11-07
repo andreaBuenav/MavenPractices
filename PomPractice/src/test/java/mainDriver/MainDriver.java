@@ -6,10 +6,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class MainDriver {
     private WebDriver driver;
 
-    public void chromeDriver( ) {
+    public MainDriver( ) {
         String path = System.getProperty("user.dir");
-       System.setProperty( "webdriver.chrome.driver", path+"util/chromedriver.exe");
-    driver = new ChromeDriver();
+       System.setProperty( "webdriver.chrome.driver", path+ "\\drivers\\chromedriver.exe");
+       driver = new ChromeDriver();
     }
 
     public WebDriver getDriver() {

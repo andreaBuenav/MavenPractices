@@ -1,6 +1,7 @@
 package pages;
 
 import basePage.BasePage;
+import com.github.javafaker.Faker;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -26,7 +27,7 @@ public class HomePage extends BasePage {
         Random random = new Random();
         while (itemSelected < itemNumber) {
             int randomIndex = random.nextInt(6);
-            String itemId = "item-" + (randomIndex + 1);
+            String itemId = "item-" + (randomIndex )+"-title-link";
             WebElement item = driver.findElement(By.id(itemId));
             if (item.isDisplayed() && item.isEnabled()) {
                 item.click();
