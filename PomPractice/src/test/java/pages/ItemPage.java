@@ -1,9 +1,13 @@
 package pages;
 
 import basePage.BasePage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import java.util.List;
+import java.util.Set;
 
 public class ItemPage extends BasePage {
     public ItemPage(WebDriver driver) {
@@ -12,6 +16,7 @@ public class ItemPage extends BasePage {
 
 
     //Buttons
+
     @FindBy(id = "shopping_cart_container")
     private WebElement shoppingCart;
     @FindBy(id = "checkout")
@@ -20,14 +25,29 @@ public class ItemPage extends BasePage {
     private WebElement menu;
     @FindBy(id = "logout_sidebar_link")
     private WebElement logout;
-    @FindBy(id = "")
-    private WebElement delete;
 
-    public CheckoutPage purchaseSelected(){
+    public CheckoutPage purchaseSelected()
+    {
+        waitToBeClickable(shoppingCart);
         shoppingCart.click();
+        waitToBeClickable(checkoutButton);
         checkoutButton.click();
       return new CheckoutPage(driver);
     }
+
+
+
+    public CheckoutPage removeSelected()
+    {
+        waitToBeClickable(shoppingCart);
+        shoppingCart.click();
+        return new CheckoutPage(driver);
+    }
+
+
+
+
+
 
 
     public LoginPage logOut(){
