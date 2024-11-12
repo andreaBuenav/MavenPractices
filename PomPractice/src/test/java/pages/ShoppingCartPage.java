@@ -1,14 +1,10 @@
 package pages;
 
-import basePage.BasePage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotInteractableException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import utils.basePage.BasePage;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 public class ShoppingCartPage extends BasePage {
     public ShoppingCartPage(WebDriver driver) {
@@ -40,7 +36,7 @@ public class ShoppingCartPage extends BasePage {
             checkoutButton.click();
             return new CheckoutPage(driver);
         }else{
-                throw new NoSuchElementException(" Checkout Button not found");
+                throw new ElementClickInterceptedException(" Checkout Button unable to be pressed");
             }
     }
 
@@ -71,16 +67,7 @@ public class ShoppingCartPage extends BasePage {
     }
 
 
-    public LoginPage logOut(){
-        if(menu.isEnabled() && logout.isEnabled()){
-        menu.click();
-        waitToBeVisible(logout);
-        logout.click();
-        return new LoginPage(driver);}
-        else {
-            throw new ElementNotInteractableException("Failed to logout");
-        }
-    }
+
 
     public boolean isCartEmpty(){
         List<WebElement> removeButtons = driver.findElements(By.cssSelector(".btn.btn_secondary.btn_small.cart_button"));

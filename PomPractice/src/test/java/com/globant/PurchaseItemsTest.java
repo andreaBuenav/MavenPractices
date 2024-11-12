@@ -1,12 +1,11 @@
 package com.globant;
 
 
-import baseTest.BaseTest;
+import utils.baseTest.BaseTest;
 
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pages.CheckoutPage;
 import pages.HomePage;
@@ -43,6 +42,10 @@ public void firstTest(String username,String password,int item,String title){
         ShoppingCartPage shoppingCartPage = new ShoppingCartPage(loadFirstPage().getDriver());
         CheckoutPage checkout = new CheckoutPage(loadFirstPage().getDriver());
 try {
+
+    //Checks if we are on the login page
+    Assert.assertTrue(login.isLoginPageTitle());
+
     //Methods to test
     if ("performance_glitch_user".equals(username)) {
         //Time for testing started
@@ -68,19 +71,28 @@ try {
         log.info("Time : " + duration + "ms");
     }
 
+    //Checks if we were able to get to the homePage
+    Assert.assertTrue(home.isHomePageTitleCorrect());
+
     //Methods to test
     home.selectItems(item);
     shoppingCartPage.purchaseSelected();
     checkout.checkout();
-    checkout.title(title);
-    checkout.logOut();
+
+    //Checks if we successfully purchased an item
+    Assert.assertTrue(checkout.isTitleCorrect(title));
 
 
 
-}catch (Exception ex){
-Assert.fail("Test failed " + ex.getMessage());
+}catch (AssertionError ex){
+    log.info("Unable to login/purchase product: " + ex.getMessage());
+    Assert.fail("Test failed due to an unsuccessful purchase: " +"\n" + ex.getMessage());
 
+}catch (Exception ex) {
+    log.info("Unexpected error occurred during the test " +"\n" + ex.getMessage());
+    Assert.fail("Test failed due to an unexpected error: " +"\n"+ ex.getMessage());
 }
+
 
     }
 

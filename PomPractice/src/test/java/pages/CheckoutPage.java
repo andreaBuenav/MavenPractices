@@ -1,17 +1,13 @@
 package pages;
 
-import basePage.BasePage;
+import utils.basePage.BasePage;
 import com.github.javafaker.Faker;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
-import org.testng.Assert;
-import org.testng.SkipException;
-
-import java.util.List;
-import java.util.NoSuchElementException;
 
 
 public class CheckoutPage extends BasePage {
+
     Faker faker = new Faker();
     private String name = faker.name().firstName();
     private String lastName= faker.name().lastName();
@@ -72,38 +68,17 @@ public class CheckoutPage extends BasePage {
             waitToBeVisible(finishButton);
             finishButton.isEnabled();
             finishButton.click();
-
-        }catch (NoSuchElementException ex){
-            System.out.println(" Error: Purchase interrupted" + ex.getMessage());
-            logOut();
+        }catch (Exception ex){
+            log.info("Error purchase interrupted due to a button or field disabled " + ex.getMessage());
         }
 
     }
 
-
-    //Method to know if we are on the checkout page
-    public void title(String title){
-        if(isTitleCorrect(title)){
-            waitToBeClickable(backToHomeButton);
-            backToHomeButton.click();
-        }else{
-            System.out.println(" Title does not match");;
-        }
-    }
 
     public boolean isTitleCorrect(String title){
         waitToBeVisible(pageTitle);
         return pageTitle.isDisplayed() && pageTitle.getText().equals(title);
     }
-    public LoginPage logOut(){
-        if(menu.isEnabled() && logout.isEnabled()){
-            menu.click();
-            waitToBeVisible(logout);
-            logout.click();
-            return new LoginPage(driver);}
-        else {
-            throw new ElementNotInteractableException("Failed to logout");
-        }
-    }
+
 
 }

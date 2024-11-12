@@ -1,12 +1,10 @@
 package com.globant;
 
-import baseTest.BaseTest;
+import utils.baseTest.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pages.CheckoutPage;
 import pages.HomePage;
 import pages.ShoppingCartPage;
 import pages.LoginPage;
@@ -32,15 +30,16 @@ public class LogoutTest extends BaseTest {
         LoginPage loginPage = loadFirstPage();
         HomePage home = new HomePage(loadFirstPage().getDriver());
         ShoppingCartPage shoppingCartPage = new ShoppingCartPage(loadFirstPage().getDriver());
-
-
         try {
+            //Checks if we are on the login page
+            Assert.assertTrue(loginPage.isLoginPageTitle());
             if ("performance_glitch_user".equals(username)) {
 
                 //Time for testing started
                 log.info("Testing with performance_glitch_user. Expecting potential delays.");
                 long startTime = System.currentTimeMillis();
                 loginPage.login(username, password);
+
 
                 //Total time for this user to finish testing
                 long endTime = System.currentTimeMillis();
@@ -51,6 +50,7 @@ public class LogoutTest extends BaseTest {
                 //Time for testing started
                 log.info("Testing started.");
                 long startTime = System.currentTimeMillis();
+                loginPage.login(username, password);
 
                 //Total time for this user to finish testing
                 long endTime = System.currentTimeMillis();
@@ -58,18 +58,25 @@ public class LogoutTest extends BaseTest {
                 log.info("Time : " + duration + "ms");
             }
 
+            //Checks if we were able to get to the homePage
+            Assert.assertTrue(home.isHomePageTitleCorrect());
+
             //Methods to test
-            loginPage.login(username, password);
             home.selectItems(item);
-            shoppingCartPage.logOut();
-            loginPage.correctPage();
+            home.logOut();
+            loginPage.correctPageLogin();
 
-    Assert.assertTrue(false, "Test successful");
+ //Checks  again if we are on the login page
+  Assert.assertTrue(loginPage.isLoginPageTitle());
 
-}catch (Exception ex){
-    System.out.println("Test failed " + ex.getMessage());
+}catch (AssertionError ex){
+            log.info("Error: " + ex.getMessage());
+            Assert.fail("Test failed unable to login/logout: " + ex.getMessage());
 
-}
+ }catch (Exception ex) {
+            log.info("Unexpected error occurred during the test.");
+            Assert.fail("Test failed due to an unexpected error: " + ex.getMessage());
+        }
 
     }
 }
