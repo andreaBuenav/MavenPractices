@@ -30,6 +30,8 @@ register all the problems hat these users encounter.<br/><br/>
  personal data to interact with the page.<br/>
 6. If the chromedirver of the project is not compatible with your device's Chrome, please go back to the content table and select "ChromeDriver"
    to install a chrome driver that is compatible for your Chrome's version.<br/>
+7. The user "performance_glitch_user" can execute all the tests, however, the time response is very slow, so in order to register it, all the tests have a duration time registered.
+8. All the tests have a comment to know where the test of that user failed.
 
 ### Chromedriver 
 [ChromeDriver for testing](https://googlechromelabs.github.io/chrome-for-testing/)<br/>      
