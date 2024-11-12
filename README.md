@@ -1,38 +1,40 @@
 ﻿# SourceDemoAutomationProject
 
 ## Content table
- [Description](#description)
- [Disclaimers](#disclaimers)
- [Chromedriver](#chromedriver)
- [Contact](#contact)
+ [Description](#description)<br/>
+ [Disclaimers](#disclaimers)<br/>
+ [Chromedriver](#chromedriver)<br/>
+ [Contact](#contact)<br/>
+ <br/>
+ <br/>
 
 ### Description
-This is a web automation project for the page [Swag Lab](https://www.saucedemo.com/).
-We will test different methods for different users to be able to know how the page is working for each one of them, and at the same time
-register all the problems hat this users encounter.
+This is a web automation project for the page [Swag Lab](https://www.saucedemo.com/).<br/>
+We will test different methods for different users to be able to know how the page is working for each one of them, and at the same time<br/>
+register all the problems hat these users encounter.<br/><br/>
 
 ### Disclaimers
 1. There is a WebElementWait that is able to wait for 5 nanoseconds, if an element is not showed within those 5 nanoseconds, a TimeoutException
-   will be caught.
-2. The project is made with an openjdk-23.
-3. When a TimeoutException is caught that user test is automatically assigned as a failed test.
-4. There are 3 types of test that will be done one after another, this means that:
-   - All purchase tests of all the users will be done first.
-   - Then all the remove items tests of all users will be done.
-   - Finally all the logout tests of all users will be done.
+   will be caught.<br/>
+2. The project is made with an openjdk-23.<br/>
+3. When a TimeoutException is caught that user test is automatically assigned as a failed test.<br/>
+4. There are 3 types of test that will be done one after another, this means that:<br/>
+   - All purchase tests of all the users will be done first.<br/><br/>
+   - Then all the remove items tests of all users will be done.<br/><br/>
+   - Finally all the logout tests of all users will be done.<br/><br/>
 5. Data providers are used for the tests, I didn't include users that are not registeres nor unnaccepted because it would
-   automatically create a failed test for that username in each one of the tests that are done during the execution of the .xml file.
+   automatically create a failed test for that username in each one of the tests that are done during the execution of the .xml file.<br/>
 5.JavaFaker was used to provide all the names, last names and zip codes, meaning that every test has a different user with different
- personal data to interact with the page.
-6. If the chromedirver of the project is not compatible with your device's Chrome, please go back to the content table and selec "ChromeDriver"
-   to install a chrome driver that is compatible for your Chrome's version.
+ personal data to interact with the page.<br/>
+6. If the chromedirver of the project is not compatible with your device's Chrome, please go back to the content table and select "ChromeDriver"
+   to install a chrome driver that is compatible for your Chrome's version.<br/>
 
 ### Chromedriver 
 [ChromeDriver for testing](https://googlechromelabs.github.io/chrome-for-testing/)<br/>      
  To set the new chrome driver just delete the one in this path of the project: PomPractice/drivers/chromedriver.exe
-then drag the new chromedriver.exe that you downloaded into the path where the deleted chromedriver was originally.
+then drag the new chromedriver.exe that you downloaded into the path where the deleted chromedriver was originally.<br/>
 
 ### Contact 
-for any questions or suggestions pleasse contact to this mail:
-andrea.buenaventura@globant.com
+for any questions or suggestions pleasse contact to this mail:<br/>
+[Mail](andrea.buenaventura@globant.com)<br/>
 
