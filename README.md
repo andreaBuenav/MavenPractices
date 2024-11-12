@@ -16,7 +16,7 @@ We will test different methods for different users to be able to know how the pa
 register all the problems hat these users encounter.<br/><br/>
 
 ### Disclaimers
-1. There is a WebElementWait that is able to wait for 5 nanoseconds, if an element is not showed within those 5 nanoseconds, a TimeoutException
+1. There is a WebElementWait that is able to wait for 1 second, if an element is not showed within that seocnd, a TimeoutException
    will be caught.<br/>
 2. The project is made with an openjdk-23.<br/>
 3. When a TimeoutException is caught that user test is automatically assigned as a failed test.<br/>
