@@ -5,6 +5,8 @@
  [Disclaimers](#disclaimers)<br/>
  [Chromedriver](#chromedriver)<br/>
  [Contact](#contact)<br/>
+ [Clone this](#clone) <br/>
+
  <br/>
  <br/>
 
@@ -37,4 +39,7 @@ then drag the new chromedriver.exe that you downloaded into the path where the d
 ### Contact 
 for any questions or suggestions pleasse contact to this mail:<br/>
 [Mail](andrea.buenaventura@globant.com)<br/>
+
+### Clone
+git clone https://github.com/andreaBuenav/SourceDemoAutomationProject.git
 
