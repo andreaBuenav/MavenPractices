@@ -1,20 +1,20 @@
 package baseTest;
 
-import com.beust.jcommander.Parameter;
 import mainDriver.MainDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import pages.CheckoutPage;
 import pages.HomePage;
-import pages.ItemPage;
+import pages.ShoppingCartPage;
 import pages.LoginPage;
 
+import java.util.logging.Logger;
+
 public class BaseTest {
+   public Logger log = Logger.getLogger(String.valueOf(BaseTest.class));
 
-
+//Method to open the browser and go to the page we want to test
     MainDriver driver;
     @BeforeMethod(alwaysRun = true)
     @Parameters({"url"})
@@ -36,17 +36,7 @@ public class BaseTest {
     public LoginPage loadFirstPage(){
         return new LoginPage(driver.getDriver());
     }
-    public HomePage loadHomepage(){
-        return new HomePage(driver.getDriver());
-    }
 
-    public ItemPage loadItemPage(){
-        return  new ItemPage(driver.getDriver());
-    }
-
-    public CheckoutPage loadCheckoutPage(){
-        return new CheckoutPage(driver.getDriver());
-    }
 
 
     @AfterMethod

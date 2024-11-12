@@ -2,13 +2,13 @@ package pages;
 
 import basePage.BasePage;
 import com.github.javafaker.Faker;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
+import org.testng.Assert;
+import org.testng.SkipException;
 
 import java.util.List;
-import java.util.Set;
+import java.util.NoSuchElementException;
 
 
 public class CheckoutPage extends BasePage {
@@ -36,6 +36,14 @@ public class CheckoutPage extends BasePage {
     private WebElement finishButton;
     @FindBy(id = "back-to-products")
     private WebElement backToHomeButton;
+    @FindBy(id = "react-burger-menu-btn")
+    private WebElement menu;
+    @FindBy(id = "logout_sidebar_link")
+    private WebElement logout;
+
+
+
+
 
 
     //Inputs
@@ -47,54 +55,55 @@ public class CheckoutPage extends BasePage {
     private WebElement zipInput;
 
 
+
     //Page title
     @FindBy(className = "complete-header")
     private WebElement pageTitle;
 
 
     public void checkout(){
-        nameInput.sendKeys(name);
-        lastNameInput.sendKeys(lastName);
-        zipInput.sendKeys(zip);
-        continueButton.click();
-        finishButton.click();
+        try {
+            nameInput.sendKeys(name);
+            lastNameInput.sendKeys(lastName);
+            zipInput.sendKeys(zip);
+            waitToBeVisible(continueButton);
+            waitToBeClickable(continueButton);
+            continueButton.click();
+            waitToBeVisible(finishButton);
+            finishButton.isEnabled();
+            finishButton.click();
 
-    }
-
-    public void remove() {
-        List<WebElement> removeButtons = driver.findElements(By.cssSelector(".btn.btn_secondary.btn_small.cart_button"));
-
-        for (WebElement removeButton : removeButtons) {
-            if (removeButton.isDisplayed() && removeButton.isEnabled() && removeButton.getText().equals("Remove")) {
-                removeButton.click();
-            }
+        }catch (NoSuchElementException ex){
+            System.out.println(" Error: Purchase interrupted" + ex.getMessage());
+            logOut();
         }
+
     }
 
 
-
-
-
+    //Method to know if we are on the checkout page
     public void title(String title){
         if(isTitleCorrect(title)){
             waitToBeClickable(backToHomeButton);
             backToHomeButton.click();
         }else{
-            System.out.println("Title does not match");;
+            System.out.println(" Title does not match");;
         }
     }
 
-
     public boolean isTitleCorrect(String title){
-      waitToBeVisible(pageTitle);
-      return pageTitle.isDisplayed() && pageTitle.getText().equals(title);
+        waitToBeVisible(pageTitle);
+        return pageTitle.isDisplayed() && pageTitle.getText().equals(title);
     }
-
-
-
-
-
-
-
+    public LoginPage logOut(){
+        if(menu.isEnabled() && logout.isEnabled()){
+            menu.click();
+            waitToBeVisible(logout);
+            logout.click();
+            return new LoginPage(driver);}
+        else {
+            throw new ElementNotInteractableException("Failed to logout");
+        }
+    }
 
 }
