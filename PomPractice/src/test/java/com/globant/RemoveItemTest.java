@@ -1,6 +1,6 @@
 package com.globant;
 
-import baseTest.BaseTest;
+import utils.baseTest.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
@@ -9,8 +9,6 @@ import pages.HomePage;
 import pages.ShoppingCartPage;
 import pages.LoginPage;
 import utils.Listener;
-
-import java.util.logging.Logger;
 
 @Listeners(Listener.class)
 public class RemoveItemTest extends BaseTest {
@@ -34,11 +32,12 @@ public class RemoveItemTest extends BaseTest {
         ShoppingCartPage shoppingCartPage = new ShoppingCartPage(loadFirstPage().getDriver());
 
 try {
+    //Checks if we are on the login page
+    Assert.assertTrue(loginPage.isLoginPageTitle());
     if ("performance_glitch_user".equals(username)) {
         //Time for testing started
         log.info("Testing with performance_glitch_user. Expecting potential delays.");
         long startTime = System.currentTimeMillis();
-        loginPage.correctPage();
         loginPage.login(username, password);
 
 //Total time for this user to finish testing
@@ -51,7 +50,8 @@ try {
         //Time for testing started
         log.info("Testing started.");
         long startTime = System.currentTimeMillis();
-        loginPage.correctPage();
+        loginPage.login(username, password);
+
 
 
         //Total time for this user to finish testing
@@ -59,9 +59,10 @@ try {
         long duration = endTime - startTime;
         log.info("Time : " + duration + "ms");
     }
+    //Checks if we were able to get to the homePage
+    Assert.assertTrue(homePage.isHomePageTitleCorrect());
 
     //Methods to test
-    loginPage.login(username, password);
     homePage.selectItems(item);
     shoppingCartPage.removeSelected();
 
@@ -69,14 +70,12 @@ try {
     Assert.assertTrue(shoppingCartPage.isCartEmpty(), "Cart is not empty");
 
 }catch (AssertionError ex){
-    log.info("Error: " + ex.getMessage());
-    shoppingCartPage.logOut();
+    log.info("Unable to login/remove items: " + ex.getMessage());
     Assert.fail("Test failed due to an error: " + ex.getMessage());
 
 }catch (Exception ex) {
-    log.info("Unexpected error occurred during the test.");
-    shoppingCartPage.logOut();
-    Assert.fail("Test failed due to an unexpected error: " + ex.getMessage());
+    log.info("Unexpected error occurred during the test." +"\n" + ex.getMessage());
+    Assert.fail("Test failed due to an unexpected error: "+"\n" + ex.getMessage());
 }
 
 

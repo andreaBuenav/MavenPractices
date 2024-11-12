@@ -1,6 +1,6 @@
 package pages;
 
-import basePage.BasePage;
+import utils.basePage.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,6 +14,9 @@ public class HomePage extends BasePage {
     }
 
 
+    //To know if we are on the home page...
+    @FindBy(id = "inventory_container")
+    private WebElement inventory;
 //Buttons
     @FindBy(id = "add-to-cart")
    private WebElement addToCart;
@@ -25,9 +28,13 @@ public class HomePage extends BasePage {
     private WebElement logout;
 
 
+
+
     //Method to select random items
     public ShoppingCartPage selectItems(int itemsToSelect) {
+        //Starts a list to save all the items the users want to purchase
         Set<Integer> selectedItems = new HashSet<>();
+        //Selects a random item from the home page
         Random random = new Random();
         while (selectedItems.size() < itemsToSelect) {
             int randomIndex = random.nextInt(6);
@@ -43,8 +50,6 @@ public class HomePage extends BasePage {
                 }else {
                     throw new NoSuchElementException(" Item not available");
                 }
-                isItemInCart(itemId);
-
             }
 
         }
@@ -52,17 +57,19 @@ public class HomePage extends BasePage {
         return new ShoppingCartPage(driver);
     }
 
-
-    public boolean isItemInCart(String itemId) {
-        try {
-            WebElement itemInCart = driver.findElement(By.id(itemId));
-            return itemInCart.isSelected();
-        } catch (NoSuchElementException e) {
-            System.out.println(" Item not available");
-            return false;
-        }
+    //Method to know if we are on the HomePage
+    public boolean isHomePageTitleCorrect(){
+        waitToBeVisible(inventory);
+        return inventory.isDisplayed();
     }
-
+    public LoginPage logOut(){
+        waitToBeVisible(menu);
+        menu.click();
+        waitToBeVisible(logout);
+        waitToBeClickable(logout);
+        logout.click();
+        return new LoginPage(driver);
+    }
 
 
     }

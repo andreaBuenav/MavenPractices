@@ -1,6 +1,6 @@
 package pages;
 
-import basePage.BasePage;
+import utils.basePage.BasePage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import java.util.NoSuchElementException;
@@ -25,8 +25,6 @@ public class LoginPage extends BasePage {
     //Title
     @FindBy(id = "inventory_container")
     private WebElement pageTitle;
-    @FindBy(css = "error-message-container error")
-    private WebElement error;
 
     //Method to log into the platform
     public HomePage login(String username, String password){
@@ -47,23 +45,24 @@ public class LoginPage extends BasePage {
         }catch (TimeoutException e){
             throw new AssertionError("Timeout limit passed");
         }catch (Exception e){
-            throw new AssertionError("Unexpected error");
+            throw new AssertionError("Unexpected error" + e.getMessage());
         }
     }
 
 
     //Method to know if we are on the login page
-    public void correctPage(){
-        if(isPageCorrect()){
+    public void correctPageLogin(){
+        if(isLoginPageTitle()){
         }else {
-            System.out.println("Not in the login page!");
+            log.info("Not in the correct page");
         }
     }
 
-public boolean isPageCorrect(){
+public boolean isLoginPageTitle(){
         waitToBeVisible(loginButton);
         return loginButton.isDisplayed();
 }
+
 
 
 

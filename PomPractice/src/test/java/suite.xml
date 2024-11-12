@@ -9,13 +9,9 @@
 
     <test name="test2">
         <classes>
-
-
+            <class name="com.globant.PurchaseItemsTest"></class>
             <class name="com.globant.RemoveItemTest"></class>
-
-
-            
-
+            <class name="com.globant.LogoutTest"></class>
 
         </classes>
         
