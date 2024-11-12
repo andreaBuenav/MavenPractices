@@ -1,15 +1,20 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="example test suite" verbose="1">
+    <listeners>
+        <listener class-name="utils.Listener"></listener>
+    </listeners>
 
     <parameter name="url" value="https://www.saucedemo.com/"></parameter>
-    <parameter name="username" value="standard_user"></parameter>
-    <parameter name="password" value="secret_sauce"></parameter>
-    <parameter name="item" value="3"></parameter>
-    <parameter name="title" value="Thank you for your order!"></parameter>
-    
+    <parameter name="titleT1" value="Thank you for your order!"></parameter>
+
     <test name="test2">
         <classes>
+
+
             <class name="com.globant.RemoveItemTest"></class>
+
+
+            
 
 
         </classes>
